@@ -3,8 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>微信读书电台</title>
+    <script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
 </head>
 <body>
+<view id="playingpage">
+    <!-- 用户信息{ -->
+    <view id="user">
+        <view id="user_info">
+            <image id="user_ava" class="user_avator" src="{{user.avatarUrl}}" />
+        </view>
+        <!-- 选择分类{ -->
+        <view id="select" bindtap="choiceItem" data-item="2" class="chioce-item" hover-class="click-once-opaque">
+            <text>{{activeSortingName}}</text>
+            <image id="select_image" class="icon-chioce" src="{{sortingChioceIcon}}" />
 
+        </view>
+        <!-- 选择分类} -->
+        <!-- 列表选项{ -->
+        <view class="sorting-list{{!chioceSorting?' chioce-list-hide':' chioce-list-show'}}">
+            <view v-for ="{{sortingList}}" catchtap="selectSorting" data-index="{{index}}" class="sorting-item" hover-class="click-once">
+                {{item.value}}
+            </view>
+        </view>
+        <!-- 列表选项} -->
+    </view>
+    <!-- 用户信息} -->
+</view>
 </body>
 </html>
