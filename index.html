@@ -6,28 +6,28 @@
     <script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
 </head>
 <body>
-<view id="playingpage">
+<div id="playingpage">
     <!-- 用户信息{ -->
-    <view id="user">
-        <view id="user_info">
+    <div id="user">
+        <div id="user_info">
             <image id="user_ava" class="user_avator" src="{{user.avatarUrl}}" />
-        </view>
+        </div>
         <!-- 选择分类{ -->
-        <view id="select" bindtap="choiceItem" data-item="2" class="chioce-item" hover-class="click-once-opaque">
+        <div id="select" bindtap="choiceItem" data-item="2" class="chioce-item" hover-class="click-once-opaque">
             <text>{{activeSortingName}}</text>
             <image id="select_image" class="icon-chioce" src="{{sortingChioceIcon}}" />
 
-        </view>
+        </div>
         <!-- 选择分类} -->
         <!-- 列表选项{ -->
-        <view class="sorting-list{{!chioceSorting?' chioce-list-hide':' chioce-list-show'}}">
-            <view v-for ="{{sortingList}}" catchtap="selectSorting" data-index="{{index}}" class="sorting-item" hover-class="click-once">
+        <div class="sorting-list{{!chioceSorting?' chioce-list-hide':' chioce-list-show'}}">
+            <div v-for ="{{sortingList}}" catchtap="selectSorting" data-index="{{index}}" class="sorting-item" hover-class="click-once">
                 {{item.value}}
-            </view>
-        </view>
+            </div>
+        </div>
         <!-- 列表选项} -->
-    </view>
+    </div>
     <!-- 用户信息} -->
-</view>
+</div>
 </body>
 </html>
