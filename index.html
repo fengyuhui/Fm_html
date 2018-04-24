@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>微信读书电台</title>
+    <title>学优优FM</title>
     <script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
 </head>
 <body>
@@ -10,22 +10,14 @@
     <!-- 用户信息{ -->
     <div id="user">
         <div id="user_info">
-            <image id="user_ava" class="user_avator" src="{{user.avatarUrl}}" />
+            <img id="user_ava"  src="image/default-avatar.png" />
         </div>
         <!-- 选择分类{ -->
-        <div id="select" bindtap="choiceItem" data-item="2" class="chioce-item" hover-class="click-once-opaque">
-            <text>{{activeSortingName}}</text>
-            <image id="select_image" class="icon-chioce" src="{{sortingChioceIcon}}" />
-
+        <div id="select">
+            <text>zzz</text>
+            <img id="select_image" src="image/fm/icon-down-black.png" />
         </div>
         <!-- 选择分类} -->
-        <!-- 列表选项{ -->
-        <div class="sorting-list{{!chioceSorting?' chioce-list-hide':' chioce-list-show'}}">
-            <div v-for ="{{sortingList}}" catchtap="selectSorting" data-index="{{index}}" class="sorting-item" hover-class="click-once">
-                {{item.value}}
-            </div>
-        </div>
-        <!-- 列表选项} -->
     </div>
     <!-- 用户信息} -->
 </div>
