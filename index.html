@@ -3,23 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <title>学优优FM</title>
+    <link rel = "stylesheet" href="index.css" media="screen"/>
     <script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
 </head>
 <body>
-<div id="playingpage">
-    <!-- 用户信息{ -->
-    <div id="user">
-        <div id="user_info">
-            <img id="user_ava"  src="image/default-avatar.png" />
-        </div>
-        <!-- 选择分类{ -->
-        <div id="select">
-            <text>zzz</text>
-            <img id="select_image" src="image/fm/icon-down-black.png" />
-        </div>
-        <!-- 选择分类} -->
+<!-- 用户信息{ -->
+<div class="user">
+    <div class="user_info">
+        <image id="user_ava" class="user_avator" src="image/default-avatar.png" />
     </div>
-    <!-- 用户信息} -->
+
+    <!-- 选择分类{ -->
+    <div class="select">
+        <image id="select_icon" class="icon-chioce" src="image/fm/music_classify.png" />
+        <text>小学一年级</text>
+        <image id="select_image" class="icon-chioce" src="image/fm/more_enter.png" />
+
+    </div>
+    <!-- 选择分类} -->
 </div>
+<!-- 用户信息} -->
+
+<!--播放{-->
+<div id="fm-covermain" style='background:url("image/fm/play_bj.png");-webkit-background-size:cover;'>
+    <div id="title" class="title">
+        <div id="type">
+            <image id="type_image" src="image/fm/music_icon.png" style = 'width: 30px;height:30px;'/>
+            <text>活力早晨</text>
+        </div>
+        <div>
+            <image src="image/but_share.png" style = 'width: 64px;height:63px;'/>
+        </div>
+    </div>
+    <div id="musicName" class="musicName">
+        <text>美丽的多瑙河</text>
+    </div>
+    <div id="fm-fixed">
+        <template is="playingpercent" data="{{playtime:playtime,percent:percent,duration:duration}}" />
+        <div id="fm-action">
+            <div bindtap="beforeplay" id = "switchleft">
+                <image src="image/fm/time_left.png" style = 'width: 30px;height:21px;'/>
+            </div>
+            <div bindtap="play" class = "switchmiddle" hidden="{{!playing}}">
+                <image src="image/fm/play_stop.png" style = 'width: 162px;height:80px;'/>
+            </div>
+            <div bindtap="play" class = "switchmiddle" hidden="{{playing}}">
+                <image src="image/fm/play_start.png" style = 'width: 162px;height:80px;'/>
+            </div>
+            <div bindtap="nextplay"  id = "switchright">
+                <image src="image/fm/time_right.png" style = 'width: 30px;height:21px;'/>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<!--播放}-->
+
 </body>
 </html>
