@@ -31,7 +31,8 @@
             <image id="type_image" src="image/fm/music_icon.png" style = 'width: 30px;height:30px;'/>
             <text>活力早晨</text>
         </div>
-        <div>
+
+        <div id = "share_image">
             <image src="image/but_share.png" style = 'width: 64px;height:63px;'/>
         </div>
     </div>
@@ -39,7 +40,17 @@
         <text>美丽的多瑙河</text>
     </div>
     <div id="fm-fixed">
-        <template is="playingpercent" data="{{playtime:playtime,percent:percent,duration:duration}}" />
+        <div id="playing-status" data="{{playtime:playtime,percent:percent,duration:duration}}" >
+            <div id = "line">
+                <progress percent="{{percent}}" stroke-width="4" backgroundColor = "#a2a7aa" activeColor = "#ff4892">
+                    <text style="left:0%" id = "play_shot"></text>
+                </progress>
+            </div>
+            <div id = "play_time">
+                <text id = "starttime" class="time" style = 'font-size: 25px;'>00:00</text>
+                <text id="endtime" class="time" style = 'font-size: 25px;'>00:00</text>
+            </div>
+        </div>
         <div id="fm-action">
             <div bindtap="beforeplay" id = "switchleft">
                 <image src="image/fm/time_left.png" style = 'width: 30px;height:21px;'/>
