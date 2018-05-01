@@ -7,6 +7,7 @@
     <script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
 </head>
 <body>
+<div>
 <!-- 用户信息{ -->
 <div class="user">
     <div class="user_info">
@@ -25,7 +26,7 @@
 <!-- 用户信息} -->
 
 <!--播放{-->
-<div id="fm-covermain" style='background:url("image/fm/play_bj.png");-webkit-background-size:cover;'>
+<div id="fm-covermain" style='background:url("image/fm/play_bj.png");-webkit-background-size:cover;overflow: hidden; '>
     <div id="title" class="title">
         <div id="type">
             <image id="type_image" src="image/fm/music_icon.png" style = 'width: 30px;height:30px;'/>
@@ -39,11 +40,12 @@
     <div id="musicName" class="musicName">
         <text>美丽的多瑙河</text>
     </div>
-    <div id="fm-fixed">
+    <div class="fm-fixed" style='position: absolute;left:0px;top:0px;width:669px;height: 400px;'>
         <div id="playing-status" data="{{playtime:playtime,percent:percent,duration:duration}}" >
             <div id = "line">
-                <progress percent="{{percent}}" stroke-width="4" backgroundColor = "#a2a7aa" activeColor = "#ff4892">
-                    <text style="left:0%" id = "play_shot"></text>
+                <progress class="playprogress" percent="{{percent}}" value="0" max="100" style='background: #63a6f9' >
+                    <text style="left:0%; position: absolute;display: block;height:8px;width: 9px;overflow: hidden;background: #63a6f9;box-shadow: 0 0 2px 2px #b0b0b0;
+    border:8px solid #fff;border-radius: 50%;top:50%; transform: translate3d(-50%,-50%,0)" class="progresstext"></text>
                 </progress>
             </div>
             <div id = "play_time">
@@ -52,8 +54,8 @@
             </div>
         </div>
         <div id="fm-action">
-            <div bindtap="beforeplay" id = "switchleft">
-                <image src="image/fm/time_left.png" style = 'width: 30px;height:21px;'/>
+            <div bindtap="beforeplay" class = "switchleft"  style = 'position: absolute;left:150px;top:400px;color: #fff;overflow: hidden;z-index: 0;width: 30px;height:21px;'>
+                <image src="image/fm/time_left.png"/>
             </div>
             <!--<div bindtap="play" class = "switchmiddle" hidden="{{!playing}}">-->
                 <!--<image src="image/fm/play_stop.png" style = 'width: 162px;height:80px;'/>-->
@@ -61,11 +63,11 @@
             <!--<div bindtap="play" class = "switchmiddle" hidden="{{playing}}">-->
                 <!--<image src="image/fm/play_start.png" style = 'width: 162px;height:80px;'/>-->
             <!--</div>-->
-            <div class = "switchmiddle">
-                <image src="image/fm/play_start.png" style = 'width: 162px;height:80px;'/>
+            <div class = "switchmiddle" style = 'position: absolute;left:260px;top:370px;color: #fff;overflow: hidden;z-index: 0;width: 162px;height:80px;'>
+                <image src="image/fm/play_start.png" />
             </div>
-            <div bindtap="nextplay"  id = "switchright">
-                <image src="image/fm/time_right.png" style = 'width: 30px;height:21px;'/>
+            <div bindtap="nextplay"  class = "switchright"  style = 'position: absolute;left:500px;top:400px;color: #fff;overflow: hidden;z-index: 0;width: 30px;height:21px;'>
+                <image src="image/fm/time_right.png"/>
             </div>
         </div>
 
@@ -74,5 +76,104 @@
 </div>
 <!--播放}-->
 
+    <!--分类{-->
+    <div id = "subtypes">
+        <div id = "typeleft">
+            <image src="image/fm/more_left.png" style = 'width: 15px;height:24px;'/>
+        </div>
+
+        <div id = "typemiddle">
+            <!-- 分类小按钮{ -->
+            <div class="types">
+                <div data-id="1" class="energy">
+                    <image src="image/music88.png" />
+                    <text>活力早晨</text>
+                </div>
+                <div data-id="1" class="energy">
+                    <image src="image/music88.png" />
+                    <text>活力早晨</text>
+                </div>
+                <div data-id="1" class="energy">
+                    <image src="image/music88.png" />
+                    <text>活力早晨</text>
+                </div>
+                <div data-id="1" class="energy">
+                    <image src="image/visible.png" />
+                    <text>活力早晨</text>
+                </div>
+            </div>
+            <!-- 分类小按钮} -->
+
+            <!-- 分类小按钮{ -->
+            <div id="types" class="types">
+                <div data-id="1" class="energy">
+                    <image src="image/skyscraper.png" />
+                    <text>活力早晨</text>
+                </div>
+                <div data-id="1" class="energy">
+                    <image src="image/family11.png" />
+                    <text>活力早晨</text>
+                </div>
+                <div data-id="1" class="energy">
+                    <image src="image/books8.png" />
+                    <text>活力早晨</text>
+                </div>
+                <div data-id="1" class="energy">
+                    <image src="image/teddy.png" />
+                    <text>活力早晨</text>
+                </div>
+            </div>
+            <!-- 分类小按钮} -->
+
+            <!-- 分类小按钮{ -->
+            <div class="types">
+                <div data-id="1" class="energy">
+                    <image src="image/music92.png" />
+                    <text>活力早晨</text>
+                </div>
+                <div data-id="1" class="energy">
+                    <image src="image/abc10.png" />
+                    <text>活力早晨</text>
+                </div>
+                <div data-id="1" class="energy">
+                    <image src="image/book200.png" />
+                    <text>活力早晨</text>
+                </div>
+                <div data-id="1" class="energy">
+                    <image src="image/fan2.png" />
+                    <text>活力早晨</text>
+                </div>
+            </div>
+            <!-- 分类小按钮} -->
+
+            <!-- 分类小按钮{ -->
+            <div class="types">
+                <div data-id="1" class="energy">
+                    <image src="image/music92.png" />
+                    <text>活力早晨</text>
+                </div>
+                <div data-id="1" class="energy">
+                    <image src="image/abc10.png" />
+                    <text>活力早晨</text>
+                </div>
+                <div data-id="1" class="energy">
+                    <image src="image/book200.png" />
+                    <text>活力早晨</text>
+                </div>
+                <div data-id="1" class="energy">
+                    <image src="image/fan2.png" />
+                    <text>活力早晨</text>
+                </div>
+            </div>
+            <!-- 分类小按钮} -->
+        </div>
+
+        <div id = "typeright">
+            <image src="image/fm/more_right.png" style = 'width: 15px;height:24px;'/>
+        </div>
+    </div>
+    <!--分类}-->
+
+</div>
 </body>
 </html>
