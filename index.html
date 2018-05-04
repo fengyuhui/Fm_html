@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <title>学优优FM</title>
     <link rel = "stylesheet" href="index.css" media="screen"/>
-    <script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+    <script src="index.js"></script>
 </head>
-<body>
+<body  onload="onload()">
+
 <div>
 <!-- 用户信息{ -->
 <div class="user">
@@ -82,192 +83,13 @@
             <image src="image/fm/more_left.png" style = 'width: 15px;height:24px;'/>
         </div>
 
+        <!-- 分类小按钮{ -->
         <div id = "typemiddle">
-            <!-- 分类小按钮{ -->
-
-
-                <!-- 分类加载-->
-
                 <div id = "st">
-
-                    <!--<scrollview class="typescroll" style="height:530px" scroll-y="true" bindscroll="typescrll">-->
-
-                        <!--<div wx:for="{{subtypesList}}" class="types" id="types" wx:for-item="father" >-->
-                            <!--<div wx:for="{{father}}" class="stypes" id="stypes" >-->
-                                <!--<div data-id="{{item.subtypesId}}" class="energy" data-index="{{index}}" data-obj="{{father[index]}}" bindtap="choiceSub">-->
-                                    <!--<image src="{{item.subtypeIcon}}" />-->
-                                    <!--<text>{{item.subtypeName}}</text>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-
-                    <!--</scrollview>-->
-
-
-                    <div class="types">
-                        <div class="stypes">
-                        <div data-id="1" class="energy">
-                            <image src="image/fm/music_icon.png" />
-                            <text>活力早晨</text>
-                        </div>
-                        </div>
-
-                        <div class="stypes">
-                        <div data-id="1" class="energy">
-                            <image src="image/fm/music_icon.png" />
-                            <text>活力早晨</text>
-                        </div>
-                        </div>
-
-                        <div class="stypes">
-                        <div data-id="1" class="energy">
-                            <image src="image/fm/music_icon.png" />
-                            <text>活力早晨</text>
-                        </div>
-                        </div>
-
-                        <div class="stypes">
-                        <div data-id="1" class="energy">
-                            <image src="image/fm/music_icon.png" />
-                            <text>活力早晨</text>
-                        </div>
-                        </div>
-
-                    </div>
-
-
-                    <div class="types">
-                        <div class="stypes">
-                            <div data-id="1" class="energy">
-                                <image src="image/fm/music_icon.png" />
-                                <text>活力早晨</text>
-                            </div>
-                        </div>
-
-                        <div class="stypes">
-                            <div data-id="1" class="energy">
-                                <image src="image/fm/music_icon.png" />
-                                <text>活力早晨</text>
-                            </div>
-                        </div>
-
-                        <div class="stypes">
-                            <div data-id="1" class="energy">
-                                <image src="image/fm/music_icon.png" />
-                                <text>活力早晨</text>
-                            </div>
-                        </div>
-
-                        <div class="stypes">
-                            <div data-id="1" class="energy">
-                                <image src="image/fm/music_icon.png" />
-                                <text>活力早晨</text>
-                            </div>
-                        </div>
-
-                    </div>
-
-
-                    <div class="types">
-                        <div class="stypes">
-                            <div data-id="1" class="energy">
-                                <image src="image/fm/music_icon.png" />
-                                <text>活力早晨</text>
-                            </div>
-                        </div>
-
-                        <div class="stypes">
-                            <div data-id="1" class="energy">
-                                <image src="image/fm/music_icon.png" />
-                                <text>活力早晨</text>
-                            </div>
-                        </div>
-
-                        <div class="stypes">
-                            <div data-id="1" class="energy">
-                                <image src="image/fm/music_icon.png" />>
-                                <text>活力早晨</text>
-                            </div>
-                        </div>
-
-                        <div class="stypes">
-                            <div data-id="1" class="energy">
-                                <image src="image/fm/music_icon.png" />
-                                <text>活力早晨</text>
-                            </div>
-                        </div>
-
-                    </div>
-
-
-                    <div class="types">
-                        <div class="stypes">
-                            <div data-id="1" class="energy">
-                                <image src="image/fm/music_icon.png" />
-                                <text>活力早晨</text>
-                            </div>
-                        </div>
-
-                        <div class="stypes">
-                            <div data-id="1" class="energy">
-                                <image src="image/fm/music_icon.png" />
-                                <text>活力早晨</text>
-                            </div>
-                        </div>
-
-                        <div class="stypes">
-                            <div data-id="1" class="energy">
-                                <image src="image/fm/music_icon.png" />
-                                <text>活力早晨</text>
-                            </div>
-                        </div>
-
-                        <div class="stypes">
-                            <div data-id="1" class="energy">
-                                <image src="image/fm/music_icon.png" />
-                                <text>活力早晨</text>
-                            </div>
-                        </div>
-
-                    </div>
-
-
-
-                    <div class="types">
-                        <div class="stypes">
-                            <div data-id="1" class="energy">
-                                <image src="image/fm/music_icon.png" />
-                                <text>活力早晨</text>
-                            </div>
-                        </div>
-
-                        <div class="stypes">
-                            <div data-id="1" class="energy">
-                                <image src="image/fm/music_icon.png" />
-                                <text>活力早晨</text>
-                            </div>
-                        </div>
-
-                        <div class="stypes">
-                            <div data-id="1" class="energy">
-                                <image src="image/fm/music_icon.png" />
-                                <text>活力早晨</text>
-                            </div>
-                        </div>
-
-                        <div class="stypes">
-                            <div data-id="1" class="energy">
-                                <image src="image/fm/music_icon.png" />
-                                <text>活力早晨</text>
-                            </div>
-                        </div>
-
-                    </div>
-
                 </div>
-            <!-- 分类小按钮} -->
-
         </div>
+        <!-- 分类小按钮} -->
+
 
         <div id = "typeright">
             <image src="image/fm/more_right.png" style = 'width: 15px;height:24px;'/>
