@@ -47,18 +47,29 @@
 #play_shot{color:#a2a7aa}
 
 #types{margin-top:40px;display: flex}
-#types view{flex: 1;text-align: center;position: relative;width: 100%;margin-top:35px;}
 #types image{width: 46px;height:46px;}
 #types text{position: absolute;font-size: 23px;left:25%;top:100%;color: #b0b0b0;margin-top:8px;}
 
+
+.types{display: flex;width: 100%;height: 125px;padding-top:0px;margin-top:0}
+.stypes{flex: 1;text-align: center;position: relative;width: 100%;margin-top:44px;margin-left:10px;}
+.stypes image{width: 46px;height:46px;}
+.stypes text{position: absolute;font-size: 24px;left:25%;top:70%;color: #b0b0b0;margin-top:8px;}
+.st{
+    z-index: 0;
+    margin-top:30px;
+    position: relative;
+}
+
+
 #subtypes{border-top:1px solid #efefef;margin-top:8px;z-index: 0;}
 
-#typeleft{position: absolute;left:40px;top:75%;z-index: 0;}
-#typeright{position: absolute;right:40px;top:75%;z-index: 0;}
-#typemiddle{position: absolute;left:75px;width: 600px;top:52%;z-index: 0;}
+#typeleft{position: absolute;left:40px;top:160%;z-index: 0;}
+#typeright{position: absolute;right:40px;top:160%;z-index: 0;}
+#typemiddle{position: absolute;left:27%;width: 600px;top:115%;z-index: 0;}
 
 #ok{position: relative;margin-left:560px;color:#71DB46;  z-index: 2;}
-#cancel{position: reletive;margin-left:5px;  z-index: 2;}
+#cancel{position: relative;margin-left:5px;  z-index: 2;}
 
 
 
