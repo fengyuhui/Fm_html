@@ -16,32 +16,19 @@
     </div>
 
     <!-- 选择分类{ -->
-    <div class="select">
+    <div class="select" >
         <image id="select_icon" class="icon-chioce" src="image/fm/music_classify.png" />
         <text>小学一年级</text>
-        <image id="select_image" class="icon-chioce" src="image/fm/more_enter.png" />
-
+        <image id="select_image" class="icon-chioce" src="image/fm/more_enter.png" onclick="showTypes()" />
     </div>
     <!-- 选择分类} -->
 </div>
 <!-- 用户信息} -->
 
+
     <!-- 列表选项{ -->
-    <!--<div class="sorting-list{{!chioceSorting?' chioce-list-hide':' chioce-list-show'}}">-->
-        <!--<div class="sorting-item">-->
-            <!--<text id = "cancel">取消</text>-->
-            <!--<text id = "ok" bindtap='ensure_type'>确定</text>-->
-        <!--</div>-->
-        <!--<scroll-div class="scroll" scroll-top = "520px" style="height:320px;" scroll-y="true" bindscroll="scrll"  bindscrolltolower="loadMore">-->
-            <!--<div wx:for="{{sortingList}}" data-index="{{index}}"  class="sorting-item{{currentItem==index?'active-tag':''}}" catchtap="selectSorting">-->
-                <!--<div class="backgrounddiv{{currentItem==index?'active-tag':''}}">-->
-                    <!--<text decode="emsp">&emsp;{{item.value}}&emsp;</text>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</scroll-div>-->
-        <!--<div class="sorting-item">-->
-        <!--</div>-->
-    <!--</div>-->
+    <div class="sorting-list"  id = "showTypes" style = "display: none">
+    </div>
     <!-- 列表选项} -->
 
 <!--播放{-->
@@ -114,6 +101,9 @@
         </div>
     </div>
     <!--分类}-->
+
+<view class="mask" id = "mask" style = "display: none">
+</view>
 
 </div>
 </body>
