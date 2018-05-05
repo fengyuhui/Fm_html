@@ -51,9 +51,9 @@
 #types text{position: absolute;font-size: 23px;left:25%;top:100%;color: #b0b0b0;margin-top:8px;}
 
 
-.types{display: flex;width: 100%;height: 125px;padding-top:0px;margin-top:0}
-.stypes{flex: 1;text-align: center;position: relative;width: 100%;margin-top:44px;margin-left:10px;}
-.stypes image{width: 46px;height:46px;}
+.types{width: 100%;height: 125px;padding-top:0px;margin-top:0;margin-left: 10px}
+.stypes{float:left;text-align: center;position: relative;width:150px;margin-top:44px;}
+.stypes image{width: 46px;height:46px;text-align:center;}
 .stypes text{position: absolute;font-size: 24px;left:25%;top:70%;color: #b0b0b0;margin-top:8px;}
 .st{
     z-index: 0;
