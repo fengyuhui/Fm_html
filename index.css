@@ -99,8 +99,17 @@
     padding: 0 30px;
     line-height: 67px;
     z-index: 24;
-    border-bottom: 1px solid #aaa;
     background-color: #fff;
+}
+
+.activebackgrounddiv{
+    height: 67px;
+    width:240px;
+    margin-left:41.5%;
+    line-height: 67px;
+    background-color: #63a6f9;
+    text-align: center;
+    color:#fff;
 }
 
 
@@ -109,7 +118,6 @@
     padding: 0 30px;
     line-height: 67px;
     z-index: 4;
-    border-bottom: 1px solid #aaa;
     background-color: #fff;
 }
 
