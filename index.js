@@ -1,15 +1,15 @@
 var sortingList = [{
-    key: 1, value: "小学一年级"
+    id: 1, typeName: "小学一年级"
 }, {
-    key: 2, value: "小学二年级"
+    id: 2, typeName: "小学二年级"
 }, {
-    key: 3, value: "小学三年级"
+    id: 3, typeName: "小学三年级"
 }, {
-    key: 4, value: "小学四年级"
+    id: 4, typeName: "小学四年级"
 }, {
-    key: 5, value: "小学五年级"
+    id: 5, typeName: "小学五年级"
 }, {
-    key: 6, value: "小学六年级"
+    id: 6, typeName: "小学六年级"
 }];
 
 var showType = false;
@@ -17,19 +17,23 @@ var sortingIndex = -1;
 var sortingId = -1;
 var subTypeId = -1;
 var subTypeIndex = -1;
+var homeUrl = "https://w.xueyouyou.vip";
+var mp3UrlHeader = "https://mp3.xueyouyou.vip/";
 
 var subtypesList = [
-    {subtypesId: '1', subtypeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' }, { subtypesId: '2', subtypeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' }, { subtypesId: '3', subtypeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' }, { subtypesId: '4', subtypeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' },
-    { subtypesId: '5', subtypeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' }, { subtypesId: '6', subtypeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' }, { subtypesId: '7', subtypeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' }, { subtypesId: '8', subtypeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' },
-    { subtypesId: '9', subtypeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' }, { subtypesId: '10', subtypeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' }, { subtypesId: '11', subtypeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' }, { subtypesId: '12', subtypeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' },
-    { subtypesId: '13', subtypeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' }, { subtypesId: '14', subtypeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' }, { subtypesId: '15', subtypeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' }, { subtypesId: '16', subtypeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' },
-    { subtypesId: '13', subtypeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' }, { subtypesId: '14', subtypeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' }, { subtypesId: '15', subtypeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' }, { subtypesId: '16', subtypeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' },{ subtypesId: '13', subtypeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' },
-    { subtypesId: '13', subtypeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' },{ subtypesId: '13', subtypeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' }
+    {id: '1', typeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' }, { id: '2', typeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' }, { id: '3', typeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' }, { id: '4', typeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' },
+    { id: '5', typeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' }, { id: '6', typeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' }, { id: '7', typeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' }, { id: '8', typeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' },
+    { id: '9', typeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' }, { id: '10', typeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' }, { id: '11', typeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' }, { id: '12', typeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' },
+    { id: '13', typeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' }, { id: '14', typeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' }, { id: '15', typeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' }, { id: '16', typeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' },
+    { id: '13', typeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' }, { id: '14', typeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' }, { id: '15', typeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' }, { id: '16', typeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' },{ id: '13', typeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' },
+    { id: '13', typeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' },{ id: '13', typeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' }
 ]
 
 function onload() {
+         //加载分类
+        loadTypes();
         var typeValue = document.getElementById('typeValue');
-        typeValue.innerHTML = sortingList[0].value;
+        typeValue.innerHTML = sortingList[0].typeName;
         addTypes();
         addSubType();
 }
@@ -47,9 +51,9 @@ function addSubType() {  //循环添加子分类
             str += '<div class="types">';
         }
         str += '<div class="stypes">' +
-            '<div data-id='+subtypesList[i-1].subtypesId+' data-index = '+j+' class="energy" onclick="choiceSub(this)">' +
+            '<div data-id='+subtypesList[i-1].id+' data-index = '+j+' class="energy" onclick="choiceSub(this)">' +
             '<image src='+subtypesList[i-1].subtypeIcon+' />' +
-            '<text>'+subtypesList[i-1].subtypeName+'</text>' +
+            '<text>'+subtypesList[i-1].typeName+'</text>' +
             '</div>' +
             '</div>';
         if(i%4 == 0 && i!=0){
@@ -74,8 +78,8 @@ function addTypes() {  //循环添加分类
     console.log("sortingList.length"+sortingList.length);
 
     for (var i = 0; i < sortingList.length; i++) {
-        str+='<div class="backgrounddiv" onclick="selectSorting(this)" data-id='+sortingList[i].key+' data-index='+i+'>' +
-            '<text decode="emsp">&emsp;'+sortingList[i].value+'&emsp;</text>' +
+        str+='<div class="backgrounddiv" onclick="selectSorting(this)" data-id='+sortingList[i].id+' data-index='+i+'>' +
+            '<text decode="emsp">&emsp;'+sortingList[i].typeName+'&emsp;</text>' +
             '</div>';
     }
 
@@ -88,6 +92,18 @@ function addTypes() {  //循环添加分类
 function showTypes(){ //显示分类选项列表
     document.getElementById('showTypes').style.display='block';
     document.getElementById('mask').style.display='block';
+}
+
+function loadTypes(){
+    //加载分类
+    jQuery.ajax({
+        type: "post",
+        url: homeUrl+"/getSortinglists",
+        dataType: "jsonp", //跨域设置
+        success: function(res) {
+            sortingList =  res.sortingList;
+        }
+    });
 }
 
 function selectSorting(e){//选择分类并刷新数据
@@ -103,7 +119,17 @@ function selectSorting(e){//选择分类并刷新数据
     sortingId = id;
     sortingIndex = index;
     var typeName = document.getElementById('typeValue');
-    typeName.innerHTML = sortingList[index].value;
+    typeName.innerHTML = sortingList[index].typeName;
+
+    //加载子分类
+    jQuery.ajax({
+        type: "post",
+        url: homeUrl+'/getSubtypelist?key=' + sortingList[index].id,
+        dataType: "jsonp", //跨域设置
+        success: function(res) {
+            subtypesList =  res.sortingList;
+        }
+    });
 }
 
 function choiceSub(e){//选择子分类并刷新数据
@@ -112,7 +138,7 @@ function choiceSub(e){//选择子分类并刷新数据
     subTypeId = id;
     subTypeIndex = index;
     var subTypeValue = document.getElementById('subTypeValue');
-    subTypeValue.innerHTML = subtypesList[index].subtypeName;
+    subTypeValue.innerHTML = subtypesList[index].typeName;
 }
 
 function hideTypes(){//隐藏分类选择项列表
