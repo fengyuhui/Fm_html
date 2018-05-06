@@ -12,30 +12,35 @@ var sortingList = [{
     id: 6, typeName: "小学六年级"
 }];
 
-var showType = false;
+var showType = false;//是否显示分类选项列表
+var isplaying = false;//音乐是否播放中
 var sortingIndex = -1;
 var sortingId = -1;
 var subTypeId = -1;
 var subTypeIndex = -1;
+// var homeUrl = "https://w.xueyouyou.vip";
 var homeUrl = "https://w.xueyouyou.vip";
 var mp3UrlHeader = "https://mp3.xueyouyou.vip/";
+var iconUrlHeader = "https://w.xueyouyou.vip";
+var curplay = {};//音乐json
 
 var subtypesList = [
-    {id: '1', typeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' }, { id: '2', typeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' }, { id: '3', typeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' }, { id: '4', typeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' },
-    { id: '5', typeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' }, { id: '6', typeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' }, { id: '7', typeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' }, { id: '8', typeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' },
-    { id: '9', typeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' }, { id: '10', typeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' }, { id: '11', typeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' }, { id: '12', typeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' },
-    { id: '13', typeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' }, { id: '14', typeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' }, { id: '15', typeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' }, { id: '16', typeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' },
-    { id: '13', typeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' }, { id: '14', typeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' }, { id: '15', typeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' }, { id: '16', typeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' },{ id: '13', typeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' },
-    { id: '13', typeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' },{ id: '13', typeName: '活力早餐', subtypeIcon: 'image/fm/music_icon.png' }
+    {id: '1', typeName: '活力早餐', iconLocation: 'image/fm/music_icon.png' }, { id: '2', typeName: '活力早餐', iconLocation: 'image/fm/music_icon.png' }, { id: '3', typeName: '活力早餐', iconLocation: 'image/fm/music_icon.png' }, { id: '4', typeName: '活力早餐', iconLocation: 'image/fm/music_icon.png' },
+    { id: '5', typeName: '活力早餐', iconLocation: 'image/fm/music_icon.png' }, { id: '6', typeName: '活力早餐', iconLocation: 'image/fm/music_icon.png' }, { id: '7', typeName: '活力早餐', iconLocation: 'image/fm/music_icon.png' }, { id: '8', typeName: '活力早餐', iconLocation: 'image/fm/music_icon.png' },
+    { id: '9', typeName: '活力早餐', iconLocation: 'image/fm/music_icon.png' }, { id: '10', typeName: '活力早餐', iconLocation: 'image/fm/music_icon.png' }, { id: '11', typeName: '活力早餐', iconLocation: 'image/fm/music_icon.png' }, { id: '12', typeName: '活力早餐', iconLocation: 'image/fm/music_icon.png' },
+    { id: '13', typeName: '活力早餐', iconLocation: 'image/fm/music_icon.png' }, { id: '14', typeName: '活力早餐', iconLocation: 'image/fm/music_icon.png' }, { id: '15', typeName: '活力早餐', iconLocation: 'image/fm/music_icon.png' }, { id: '16', typeName: '活力早餐', iconLocation: 'image/fm/music_icon.png' },
+    { id: '13', typeName: '活力早餐', iconLocation: 'image/fm/music_icon.png' }, { id: '14', typeName: '活力早餐', iconLocation: 'image/fm/music_icon.png' }, { id: '15', typeName: '活力早餐', iconLocation: 'image/fm/music_icon.png' }, { id: '16', typeName: '活力早餐', iconLocation: 'image/fm/music_icon.png' },{ id: '13', typeName: '活力早餐', iconLocation: 'image/fm/music_icon.png' },
+    { id: '13', typeName: '活力早餐', iconLocation: 'image/fm/music_icon.png' },{ id: '13', typeName: '活力早餐', iconLocation: 'image/fm/music_icon.png' }
 ]
 
 function onload() {
          //加载分类
         loadTypes();
+        setInterval("playAlrc()",1000);
         var typeValue = document.getElementById('typeValue');
         typeValue.innerHTML = sortingList[0].typeName;
         addTypes();
-        addSubType();
+
 }
 
 function addSubType() {  //循环添加子分类
@@ -52,7 +57,7 @@ function addSubType() {  //循环添加子分类
         }
         str += '<div class="stypes">' +
             '<div data-id='+subtypesList[i-1].id+' data-index = '+j+' class="energy" onclick="choiceSub(this)">' +
-            '<image src='+subtypesList[i-1].subtypeIcon+' />' +
+            '<image src='+subtypesList[i-1].iconLocation+' />' +
             '<text>'+subtypesList[i-1].typeName+'</text>' +
             '</div>' +
             '</div>';
@@ -101,7 +106,12 @@ function loadTypes(){
         url: homeUrl+"/getSortinglists",
         dataType: "jsonp", //跨域设置
         success: function(res) {
-            sortingList =  res.sortingList;
+            //sortingList =  res.sortingList;
+            console.log("fail"+JSON.stringify(res));
+            console.log("here");
+        },
+        fail: function(res){
+            console.log("fail"+res);
         }
     });
 }
@@ -130,6 +140,9 @@ function selectSorting(e){//选择分类并刷新数据
             subtypesList =  res.sortingList;
         }
     });
+
+    //显示子分类
+    addSubType();
 }
 
 function choiceSub(e){//选择子分类并刷新数据
@@ -138,11 +151,109 @@ function choiceSub(e){//选择子分类并刷新数据
     subTypeId = id;
     subTypeIndex = index;
     var subTypeValue = document.getElementById('subTypeValue');
+    var bgMusic = document.getElementById('bgMusic');
     subTypeValue.innerHTML = subtypesList[index].typeName;
+
+    //根据子分类来获取音频：
+    jQuery.ajax({
+        type: "post",
+        url: homeUrl+'//getFirstSong?id' + subtypesList [index].id,
+        dataType: "jsonp", //跨域设置
+        success: function(res) {
+            curplay =  res.songs;
+            if(!res.songs.location){
+                console.log("mp3链接不存在");
+            }
+            else{
+                console.log("获取成功");
+
+                //播放音乐
+                //记得清空一波
+                //清空先空着，记得补上
+                isplaying = true;
+                bgMusic.setAttribute("src",mp3UrlHeader+res.songs.location);
+            }
+        },
+        fail:function(res){
+            console.log(res);
+            console.log("获取失败");
+        }
+    });
 }
 
 function hideTypes(){//隐藏分类选择项列表
     showType = false;
     document.getElementById('showTypes').style.display='none';
     document.getElementById('mask').style.display='none';
+}
+
+function playMusic(id){//根据音乐id获取音乐并播放
+    var bgMusic = document.getElementById('bgMusic');
+    //根据id来获取音频：
+    jQuery.ajax({
+        type: "post",
+        url: homeUrl+'/getSong?id=' + id,
+        dataType: "jsonp", //跨域设置
+        success: function(res) {
+            curplay =  res.songs;
+            if(!res.songs.location){
+                console.log("mp3链接不存在");
+            }
+            else{
+                console.log("获取成功");
+
+                //播放音乐
+                //记得清空一波
+                //清空先空着，记得补上
+                isplaying = true;
+                bgMusic.setAttribute("src",mp3UrlHeader+res.songs.location);
+            }
+        },
+        fail:function(res){
+            console.log(res);
+            console.log("获取失败");
+        }
+    });
+}
+
+function play(){//控制播放or暂停
+    var bgMusic = document.getElementById('bgMusic');
+    var icon = document.getElementById('isPlaying');
+    if(isplaying){
+        bgMusic.pause();
+        icon.setAttribute("src","image/fm/play_start.png");
+        isplaying = false;
+    }
+    else{
+        bgMusic.play();//播放
+        icon.setAttribute("src","image/fm/play_stop.png");
+        isplaying = true;
+    }
+}
+
+function playAlrc(){//获取音频播放状态
+    var bgMusic = document.getElementById('bgMusic');
+    var starttime = document.getElementById('starttime');
+    var endtime = document.getElementById('endtime');
+    // if(bgMusic.playState==3){//正常播放
+    //     isplaying = true;
+    //     icon.setAttribute("src","image/fm/play_stop.png");
+    // }
+    // else if(bgMusic.playState==8){//播放完毕
+    //
+    // }
+    // else if(bgMusic.playState==2){//暂停播放
+    //     icon.setAttribute("src","image/fm/play_start.png");
+    //     isplaying = false;
+    // }
+    //
+    // if(bgMusic.controls.currentPositionString!=null){
+    //     starttime.innerHTML = bgMusic.controls.currentPositionString;
+    // }
+    // if(bgMusic.currentMedia.durationString!=null){
+    //     endtime.innerHTML = bgMusic.currentMedia.durationString;
+    // }
+    // console.log()
+
+
 }

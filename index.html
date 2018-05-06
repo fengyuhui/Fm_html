@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>学优优FM</title>
     <link rel = "stylesheet" href="index.css" media="screen"/>
+    <script type="text/javascript" src="http://www.w3dev.cn/rardownload/20130106/20130106170832648.js"></script>
     <script src="jquery/jquery-1.7.1.min.js"></script>
     <script src="jquery/jquery-ui.js"></script>
     <script src="jquery/jquery.form.js"></script>
@@ -11,6 +12,8 @@
     <script src="index.js"></script>
 </head>
 <body  onload="onload()">
+
+<audio id="bgMusic" src="http://t1.aixinxi.net/o_1ccn07dld1jfr18fo1akauvp1st0a.mp3" autoplay="autoplay"></audio>
 
 <div>
 <!-- 用户信息{ -->
@@ -73,8 +76,8 @@
             <!--<div bindtap="play" class = "switchmiddle" hidden="{{playing}}">-->
                 <!--<image src="image/fm/play_start.png" style = 'width: 162px;height:80px;'/>-->
             <!--</div>-->
-            <div class = "switchmiddle" style = 'position: absolute;left:260px;top:370px;color: #fff;overflow: hidden;z-index: 0;width: 162px;height:80px;'>
-                <image src="image/fm/play_start.png" />
+            <div class = "switchmiddle" style = 'position: absolute;left:260px;top:370px;color: #fff;overflow: hidden;z-index: 0;width: 162px;height:80px;' onclick="play()">
+                <image id = "isPlaying" src="image/fm/play_stop.png" />
             </div>
             <div bindtap="nextplay"  class = "switchright"  style = 'position: absolute;left:500px;top:400px;color: #fff;overflow: hidden;z-index: 0;width: 30px;height:21px;'>
                 <image src="image/fm/time_right.png"/>
