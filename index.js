@@ -23,6 +23,7 @@ var homeUrl = "https://w.xueyouyou.vip";
 var mp3UrlHeader = "https://mp3.xueyouyou.vip/";
 var iconUrlHeader = "https://w.xueyouyou.vip";
 var curplay = {};//音乐json
+var currentTime = "00:00";
 
 var subtypesList = [
     {id: '1', typeName: '活力早餐', iconLocation: 'image/fm/music_icon.png' }, { id: '2', typeName: '活力早餐', iconLocation: 'image/fm/music_icon.png' }, { id: '3', typeName: '活力早餐', iconLocation: 'image/fm/music_icon.png' }, { id: '4', typeName: '活力早餐', iconLocation: 'image/fm/music_icon.png' },
@@ -255,5 +256,24 @@ function playAlrc(){//获取音频播放状态
     // }
     // console.log()
 
+    console.log("bgMusic.controls.currentPositionString"+bgMusic.currentTime);
+    starttime.innerHTML = secondToDate(bgMusic.currentTime);
+    if(bgMusic.paused)
+    {
+        console.log("pause");
+    }
 
+}
+
+function secondToDate(result) {
+    var h = Math.floor(result / 3600);
+    var m = Math.floor((result / 60 % 60));
+    var s = Math.floor((result % 60));
+    if(m<10){
+        m = "0"+m;
+    }
+    if(s<10){
+        s = "0"+s;
+    }
+    return result =  m + ":" + s ;
 }
