@@ -39,28 +39,49 @@ function onload() {
         loadTypes();
         setInterval("playAlrc()",1000);
 
-        //初始化分类名称
-        var typeValue = document.getElementById('typeValue');
-        typeValue.innerHTML = sortingList[0].typeName;
-        sortingId = sortingList[0].id;
-        old_type = sortingList[0].id;
-        addTypes();//加载分类到分类选项列表
+        curplay.id = -1;
 
-        sortingIndex = 0;
+        //如果有历史缓存
+        if(localStorage.getItem("music_id")!=null){ //如果有过播放记录，那么读缓存、加载子分类并播放
+            getPlayStorage();
+            //加载子分类
+            jQuery.ajax({
+                type: "post",
+                url: homeUrl+'/getSubtypelist?key=' + sortingId,
+                dataType: "json", //跨域设置
+                success: function(res) {
+                    subtypesList =  res.sortingList;
+                }
+            });
 
-        //加载子分类
-        jQuery.ajax({
-            type: "post",
-            url: homeUrl+'/getSubtypelist?key=' + sortingList[0].id,
-            dataType: "json", //跨域设置
-            success: function(res) {
-                subtypesList =  res.sortingList;
-            }
-        });
+            //显示第一个分类下的子分类
+            addSubType();
+            //播放
+            playMusic(curplay.id);
+        }
+        else{
+            //初始化分类名称
+            var typeValue = document.getElementById('typeValue');
+            typeValue.innerHTML = sortingList[0].typeName;
+            sortingId = sortingList[0].id;
+            old_type = sortingList[0].id;
+            addTypes();//加载分类到分类选项列表
 
-        //显示第一个分类下的子分类
-        addSubType();
+            sortingIndex = 0;
 
+            //加载子分类
+            jQuery.ajax({
+                type: "post",
+                url: homeUrl+'/getSubtypelist?key=' + sortingList[0].id,
+                dataType: "json", //跨域设置
+                success: function(res) {
+                    subtypesList =  res.sortingList;
+                }
+            });
+
+            //显示第一个分类下的子分类
+            addSubType();
+        }
 }
 
 function addSubType() {  //循环添加子分类
@@ -178,6 +199,8 @@ function choiceSub(e){//选择子分类并刷新数据
     var subTypeValue = document.getElementById('subTypeValue');
     subTypeValue.innerHTML = subtypesList[index].typeName;
 
+    // setPlayStorage();
+
     //根据子分类来获取音频：
     jQuery.ajax({
         type: "post",
@@ -200,6 +223,7 @@ function choiceSub(e){//选择子分类并刷新数据
                 endtime.innerHTML = "00:00";
                 isplaying = true;
                 bgMusic.setAttribute("src",mp3UrlHeader+res.songs.location);
+                setPlayStorage();
             }
         },
         fail:function(res){
@@ -242,11 +266,17 @@ function playMusic(id){//根据音乐id获取音乐并播放
                 endtime.innerHTML = "00:00";
                 isplaying = true;
                 bgMusic.setAttribute("src",mp3UrlHeader+res.songs.location);
+                setPlayStorage();
             }
         },
         fail:function(res){
             console.log(res);
             console.log("获取失败");
+
+            //test数据
+            bgMusic.setAttribute("src","http://t1.aixinxi.net/o_1ccn07dld1jfr18fo1akauvp1st0a.mp3");
+            setPlayStorage();
+
         }
     });
 }
@@ -383,6 +413,7 @@ function playOther(e){
             }
 
             if(sortingId!=old_type){//跳分类了
+                old_type = sortingId;
                 //加载新子分类
                 jQuery.ajax({
                     type: "post",
@@ -449,7 +480,47 @@ function switchType(e) {
 
 }
 
-//转发
+//转发，这个先不写
 function onShareAppMessage(){
     
+}
+
+//记录历史缓存
+function setPlayStorage(){
+    localStorage.setItem("sortingId", sortingId);
+    localStorage.setItem("sortingIndex", sortingIndex);
+    localStorage.setItem("subTypeId", subTypeId);
+    localStorage.setItem("sortingName", sortingList[sortingIndex].typeName);//供前台页面使用
+    localStorage.setItem("subTypeName", $("#subTypeValue").val());//供前台页面使用
+    if(curplay!={}){
+        localStorage.setItem("musicId", curplay.id);
+    }
+    console.log("sortingId:"+sortingId+"subTypeId:"+subTypeId+"sortingName"+sortingList[sortingIndex].typeName+"subTypeName"+$("#subTypeValue").val()+"music_id"+curplay.id);
+}
+
+//取历史缓存
+function getPlayStorage(){
+    var subTypeValue = document.getElementById('subTypeValue');
+    var typeName = document.getElementById('typeValue');
+
+    if(localStorage.getItem("sortingId")!=null){
+        console.log("读取sortingId缓存成功");
+        sortingId = localStorage.getItem("sortingId");
+        old_type = sortingId;
+    }
+    if(localStorage.getItem("sortingIndex")!=null){
+        sortingIndex = localStorage.getItem("sortingIndex");
+    }
+    if(localStorage.getItem("subTypeId")!=null){
+        subTypeId = localStorage.getItem("subTypeId");
+    }
+    if(localStorage.getItem("sortingName")!=null){
+        typeName.innerHTML = localStorage.getItem("sortingName");
+    }
+    if(localStorage.getItem("subTypeName")!=null){
+        subTypeValue.innerHTML = localStorage.getItem("subTypeName");
+    }
+    if(localStorage.getItem("musicId")!=null){
+        curplay.id= localStorage.getItem("subTypeName");
+    }
 }
