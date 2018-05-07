@@ -55,11 +55,10 @@
     </div>
     <div class="fm-fixed" style='position: absolute;left:0px;top:0px;width:669px;height: 400px;'>
         <div id="playing-status" data="{{playtime:playtime,percent:percent,duration:duration}}" >
-            <div id = "line">
-                <progress class="playprogress" percent="{{percent}}" value="0" max="100" style='background: #63a6f9' >
-                    <text style="left:0%; position: absolute;display: block;height:8px;width: 9px;overflow: hidden;background: #63a6f9;box-shadow: 0 0 2px 2px #b0b0b0;
-    border:8px solid #fff;border-radius: 50%;top:50%; transform: translate3d(-50%,-50%,0)" class="progresstext"></text>
+            <div id = "line" class = "line">
+                <progress id = "playprogress" class="playprogress" value="0" max="100" style='background: #63a6f9' >
                 </progress>
+                <img id = "pslider" class = "pslider" src = "image/fm/play_shot.png"></img>
             </div>
             <div id = "play_time">
                 <text id = "starttime" class="time" style = 'font-size: 25px;'>00:00</text>
@@ -67,7 +66,7 @@
             </div>
         </div>
         <div id="fm-action">
-            <div bindtap="beforeplay" class = "switchleft"  style = 'position: absolute;left:150px;top:400px;color: #fff;overflow: hidden;z-index: 0;width: 30px;height:21px;'>
+            <div  class = "switchleft"  style = 'position: absolute;left:150px;top:400px;color: #fff;overflow: hidden;z-index: 0;width: 30px;height:21px;'  data-signal = "-1" onclick = "playOther(this)">
                 <image src="image/fm/time_left.png"/>
             </div>
             <!--<div bindtap="play" class = "switchmiddle" hidden="{{!playing}}">-->
@@ -79,7 +78,7 @@
             <div class = "switchmiddle" style = 'position: absolute;left:260px;top:370px;color: #fff;overflow: hidden;z-index: 0;width: 162px;height:80px;' onclick="play()">
                 <image id = "isPlaying" src="image/fm/play_stop.png" />
             </div>
-            <div bindtap="nextplay"  class = "switchright"  style = 'position: absolute;left:500px;top:400px;color: #fff;overflow: hidden;z-index: 0;width: 30px;height:21px;'>
+            <div class = "switchright"  style = 'position: absolute;left:500px;top:400px;color: #fff;overflow: hidden;z-index: 0;width: 30px;height:21px;'  data-signal = "-1" onclick = "playOther(this)">
                 <image src="image/fm/time_right.png"/>
             </div>
         </div>
@@ -91,7 +90,7 @@
 
     <!--分类{-->
     <div id = "subtypes">
-        <div id = "typeleft">
+        <div id = "typeleft" data-signal = "-1" onclick = "switchType(this)">
             <image src="image/fm/more_left.png" style = 'width: 15px;height:24px;'/>
         </div>
 
@@ -103,7 +102,7 @@
         <!-- 分类小按钮} -->
 
 
-        <div id = "typeright">
+        <div id = "typeright" data-signal = "1"  onclick = "switchType(this)">
             <image src="image/fm/more_right.png" style = 'width: 15px;height:24px;'/>
         </div>
     </div>

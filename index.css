@@ -35,16 +35,26 @@
 #musicName{flex: 1;text-align: center;position: absolute;left:0;top:34%;margin-left:10px;margin-top: -35px;width: 100%}
 .musicName text{font-size: 30px;color: #b0b0b0}
 
-
 #playing-status{display: flex;}
 #playing-status{margin-left:58px;margin-top:230px;}
-#play_time{margin-top:20px}
+#play_time{margin-top:20px;margin-top:7%;}
 #endtime{margin-left:430px;color:#a2a7aa;}
 #starttime{margin-left:-553px;color:#a2a7aa;}
-.playprogress{ width:552px;margin: 0 auto;position: relative;border-radius: 4px;background: #63a6f9;}
-.progresstext{position: absolute;display: block;height:8px;width: 9px;overflow: hidden;background-color: #63a6f9;box-shadow: 0 0 2px 2px #b0b0b0;
-    border:8px solid #fff;border-radius: 50%;top:50%; transform: translate3d(-50%,-50%,0)}
-#play_shot{color:#a2a7aa}
+.playprogress{ width:552px;margin: 0 auto;position: relative;border-radius: 4px;background: #a2a7aa;height:6px;
+    color: #ff4892; /*IE10*/
+}
+progress::-moz-progress-bar { background: #ff4892; }
+progress::-webkit-progress-bar { background: #a2a7aa; }
+progress::-webkit-progress-value  { background: #ff4892; }
+
+.pslider{
+    width:38px;position: absolute;border-radius: 4px;height:51px;
+    color: #ff4892; /*IE10*/
+    float:left;
+    top: 54%;
+    left:6%;
+}
+
 
 #types{margin-top:40px;display: flex}
 #types image{width: 46px;height:46px;}

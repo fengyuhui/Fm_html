@@ -14,16 +14,16 @@ var sortingList = [{
 
 var showType = false;//是否显示分类选项列表
 var isplaying = false;//音乐是否播放中
+var old_type = -1;//old_sorting_id
+var music_title = "";
 var sortingIndex = -1;
 var sortingId = -1;
 var subTypeId = -1;
-var subTypeIndex = -1;
 // var homeUrl = "https://w.xueyouyou.vip";
 var homeUrl = "https://w.xueyouyou.vip";
 var mp3UrlHeader = "https://mp3.xueyouyou.vip/";
 var iconUrlHeader = "https://w.xueyouyou.vip";
 var curplay = {};//音乐json
-var currentTime = "00:00";
 
 var subtypesList = [
     {id: '1', typeName: '活力早餐', iconLocation: 'image/fm/music_icon.png' }, { id: '2', typeName: '活力早餐', iconLocation: 'image/fm/music_icon.png' }, { id: '3', typeName: '活力早餐', iconLocation: 'image/fm/music_icon.png' }, { id: '4', typeName: '活力早餐', iconLocation: 'image/fm/music_icon.png' },
@@ -38,9 +38,28 @@ function onload() {
          //加载分类
         loadTypes();
         setInterval("playAlrc()",1000);
+
+        //初始化分类名称
         var typeValue = document.getElementById('typeValue');
         typeValue.innerHTML = sortingList[0].typeName;
-        addTypes();
+        sortingId = sortingList[0].id;
+        old_type = sortingList[0].id;
+        addTypes();//加载分类到分类选项列表
+
+        sortingIndex = 0;
+
+        //加载子分类
+        jQuery.ajax({
+            type: "post",
+            url: homeUrl+'/getSubtypelist?key=' + sortingList[0].id,
+            dataType: "json", //跨域设置
+            success: function(res) {
+                subtypesList =  res.sortingList;
+            }
+        });
+
+        //显示第一个分类下的子分类
+        addSubType();
 
 }
 
@@ -105,7 +124,7 @@ function loadTypes(){
     jQuery.ajax({
         type: "post",
         url: homeUrl+"/getSortinglists",
-        dataType: "jsonp", //跨域设置
+        dataType: "json", //跨域设置
         success: function(res) {
             //sortingList =  res.sortingList;
             console.log("fail"+JSON.stringify(res));
@@ -129,6 +148,7 @@ function selectSorting(e){//选择分类并刷新数据
     e.setAttribute("class","activebackgrounddiv");
     sortingId = id;
     sortingIndex = index;
+    old_type = id;
     var typeName = document.getElementById('typeValue');
     typeName.innerHTML = sortingList[index].typeName;
 
@@ -136,7 +156,7 @@ function selectSorting(e){//选择分类并刷新数据
     jQuery.ajax({
         type: "post",
         url: homeUrl+'/getSubtypelist?key=' + sortingList[index].id,
-        dataType: "jsonp", //跨域设置
+        dataType: "json", //跨域设置
         success: function(res) {
             subtypesList =  res.sortingList;
         }
@@ -147,19 +167,22 @@ function selectSorting(e){//选择分类并刷新数据
 }
 
 function choiceSub(e){//选择子分类并刷新数据
+    var bgMusic = document.getElementById("bgMusic");
+    var starttime = document.getElementById('starttime');
+    var icon = document.getElementById('isPlaying');
+    var endtime = document.getElementById('endtime');
+
     var id=e.getAttribute("data-id");
     var index=e.getAttribute("data-index");
     subTypeId = id;
-    subTypeIndex = index;
     var subTypeValue = document.getElementById('subTypeValue');
-    var bgMusic = document.getElementById('bgMusic');
     subTypeValue.innerHTML = subtypesList[index].typeName;
 
     //根据子分类来获取音频：
     jQuery.ajax({
         type: "post",
-        url: homeUrl+'//getFirstSong?id' + subtypesList [index].id,
-        dataType: "jsonp", //跨域设置
+        url: homeUrl+'/getFirstSong?id' + subtypesList [index].id,
+        dataType: "json", //跨域设置
         success: function(res) {
             curplay =  res.songs;
             if(!res.songs.location){
@@ -169,8 +192,12 @@ function choiceSub(e){//选择子分类并刷新数据
                 console.log("获取成功");
 
                 //播放音乐
-                //记得清空一波
-                //清空先空着，记得补上
+                //清空一波
+                icon.setAttribute("src","image/fm/play_start.png");
+                console.log("停止所有播放");
+                bgMusic.pause();
+                starttime.innerHTML = "00:00";
+                endtime.innerHTML = "00:00";
                 isplaying = true;
                 bgMusic.setAttribute("src",mp3UrlHeader+res.songs.location);
             }
@@ -190,11 +217,14 @@ function hideTypes(){//隐藏分类选择项列表
 
 function playMusic(id){//根据音乐id获取音乐并播放
     var bgMusic = document.getElementById('bgMusic');
+    var starttime = document.getElementById('starttime');
+    var icon = document.getElementById('isPlaying');
+    var endtime = document.getElementById('endtime');
     //根据id来获取音频：
     jQuery.ajax({
         type: "post",
         url: homeUrl+'/getSong?id=' + id,
-        dataType: "jsonp", //跨域设置
+        dataType: "json", //跨域设置
         success: function(res) {
             curplay =  res.songs;
             if(!res.songs.location){
@@ -204,8 +234,12 @@ function playMusic(id){//根据音乐id获取音乐并播放
                 console.log("获取成功");
 
                 //播放音乐
-                //记得清空一波
-                //清空先空着，记得补上
+                //清空一波
+                icon.setAttribute("src","image/fm/play_start.png");
+                console.log("停止所有播放");
+                bgMusic.pause();
+                starttime.innerHTML = "00:00";
+                endtime.innerHTML = "00:00";
                 isplaying = true;
                 bgMusic.setAttribute("src",mp3UrlHeader+res.songs.location);
             }
@@ -235,18 +269,25 @@ function play(){//控制播放or暂停
 function playAlrc(){//获取音频播放状态
     var bgMusic = document.getElementById('bgMusic');
     var starttime = document.getElementById('starttime');
+    var icon = document.getElementById('isPlaying');
     var endtime = document.getElementById('endtime');
-    // if(bgMusic.playState==3){//正常播放
-    //     isplaying = true;
-    //     icon.setAttribute("src","image/fm/play_stop.png");
-    // }
-    // else if(bgMusic.playState==8){//播放完毕
-    //
-    // }
-    // else if(bgMusic.playState==2){//暂停播放
-    //     icon.setAttribute("src","image/fm/play_start.png");
-    //     isplaying = false;
-    // }
+    var playprogress = document.getElementById("playprogress");
+    var pslider = document.getElementById("pslider");
+    if(bgMusic.playState==3){//正常播放
+        isplaying = true;
+        icon.setAttribute("src","image/fm/play_stop.png");
+        console.log("正常播放");
+    }
+    else if(bgMusic.ended){//播放完毕
+        icon.setAttribute("src","image/fm/play_start.png");
+        isplaying = false;
+        console.log("播放完毕");
+    }
+    else if(bgMusic.playState==2){//暂停播放
+        icon.setAttribute("src","image/fm/play_start.png");
+        isplaying = false;
+        console.log("暂停播放");
+    }
     //
     // if(bgMusic.controls.currentPositionString!=null){
     //     starttime.innerHTML = bgMusic.controls.currentPositionString;
@@ -256,16 +297,34 @@ function playAlrc(){//获取音频播放状态
     // }
     // console.log()
 
-    console.log("bgMusic.controls.currentPositionString"+bgMusic.currentTime);
     starttime.innerHTML = secondToDate(bgMusic.currentTime);
-    if(bgMusic.paused)
-    {
-        console.log("pause");
+    endtime.innerHTML = secondToDate(bgMusic.duration);
+    playprogress.max = bgMusic.duration;
+    if(playprogress.value!=playprogress.max){
+        if(!bgMusic.paused){
+            playprogress.value++;
+           var add = Math.floor(((playprogress.value / playprogress.max) * 100))/100 *552;
+            var str = '    width:38px;position: absolute;border-radius: 4px;height:51px;' +
+                '    color: #ff4892;' +
+                '    float:left;' +
+                '    top: 54%;'+
+               '    left:calc(6% + '+add+'px);'
+            pslider.setAttribute("style",str);
+        }
+    }
+    else{
+        playprogress.value = 0;
+        var str = '    width:38px;position: absolute;border-radius: 4px;height:51px;' +
+            '    color: #ff4892;' +
+            '    float:left;' +
+            '    top: 54%;'+
+            '    left:6%;'
+        pslider.setAttribute("style",str);
     }
 
 }
 
-function secondToDate(result) {
+function secondToDate(result) {//转格式
     var h = Math.floor(result / 3600);
     var m = Math.floor((result / 60 % 60));
     var s = Math.floor((result % 60));
@@ -276,4 +335,121 @@ function secondToDate(result) {
         s = "0"+s;
     }
     return result =  m + ":" + s ;
+}
+
+function playOther(e){
+    var bgMusic = document.getElementById("bgMusic");
+    var starttime = document.getElementById('starttime');
+    var icon = document.getElementById('isPlaying');
+    var endtime = document.getElementById('endtime');
+    var subTypeValue = document.getElementById('subTypeValue');
+    var typeName = document.getElementById('typeValue');
+    var signal = 0;
+
+    //清空一波
+    icon.setAttribute("src","image/fm/play_start.png");
+    isplaying = false;
+    console.log("停止播放，请求下一首");
+    bgMusic.pause();
+    starttime.innerHTML = "00:00";
+    endtime.innerHTML = "00:00";
+
+    if(e == 1){
+        signal = 1;
+    }
+    else{
+        signal = e.getAttribute("data-signal");
+    }
+    //获取下一首音频id：
+    jQuery.ajax({
+        type: "post",
+        url: homeUrl+'/getOtherSong?id=' + subTypeId+'&music_id=' +curplay.id+'&signal='+signal,
+        dataType: "json", //跨域设置
+        success: function(res) {
+            console.log("成功返回："+JSON.stringify(res));
+            curplay.id = res.music_message.music_id;
+            sortingId = res.music_message.sorting_id;
+            subTypeId = res.music_message.subtype_id;
+
+            //刷新一波界面
+            typeName.innerHTML = res.music_message.sorting_name;
+            subTypeValue.innerHTML = res.music_message.subtype_name;
+
+            //查找一波sortingIndex
+            for (var i = 0; i < sortingList.length; i++) {
+                if (sortingId  == sortingList[i].id) {
+                    sortingIndex = i;
+                }
+            }
+
+            if(sortingId!=old_type){//跳分类了
+                //加载新子分类
+                jQuery.ajax({
+                    type: "post",
+                    url: homeUrl+'/getSubtypelist?key=' + sortingId,
+                    dataType: "json", //跨域设置
+                    success: function(res) {
+                        subtypesList =  res.sortingList;
+                    }
+                });
+
+                //显示子分类
+                addSubType();
+            }
+
+            //播放新音频
+            playMusic(res.music_message.music_id);
+
+        },
+        fail:function(res){
+            console.log("获取失败："+JSON.stringify(res));
+        }
+    });
+}
+
+//切换分类的小箭头
+function switchType(e) {
+    var signal = 0;
+    signal = e.getAttribute("data-signal");
+
+    //取循环sortingIndex
+    if(signal == -1){
+        if(sortingIndex == 0){
+            sortingIndex = sortingList.length - 1;;
+        }
+        else{
+            sortingIndex--;
+        }
+    }
+    else if(signal == 1){
+        if (sortingIndex<that.data.sortingList.length - 1){
+            sortingIndex++;
+        }
+        else{
+            sortingIndex = 0;
+        }
+    }
+
+    //刷新一波界面
+    var typeName = document.getElementById('typeValue');
+    typeName.innerHTML = sortingList[sortingIndex].typeName;
+
+    //加载子分类
+    jQuery.ajax({
+        type: "post",
+        url: homeUrl+'/getSubtypelist?key=' + sortingList[sortingIndex].id,
+        dataType: "json", //跨域设置
+        success: function(res) {
+            subtypesList =  res.sortingList;
+        }
+    });
+
+    //显示子分类
+    addSubType();
+
+}
+
+//转发
+function onShareAppMessage(){
+    
 }
